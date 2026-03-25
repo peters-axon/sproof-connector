@@ -1,0 +1,36 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.1/data-class.json",
+  "simpleName" : "SproofDemoData",
+  "namespace" : "com.axonivy.connector.sproof.SproofDemo",
+  "fields" : [ {
+    "name" : "fileName",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "fileSize",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "streamedContent",
+    "type" : "org.primefaces.model.StreamedContent"
+  }, {
+    "name" : "content",
+    "type" : "Binary"
+  }, {
+    "name" : "signer1",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "signer2",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "firstname1",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "lastname1",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "firstname2",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "lastname2",
+    "modifiers" : [ "PERSISTENT" ]
+  } ]
+}

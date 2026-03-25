@@ -1,0 +1,88 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:ic="http://ivyteam.ch/jsf/component"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+	<ui:composition template="/layouts/frame-10-full-width.xhtml">
+		<ui:define name="title">Sproof Demo</ui:define>
+		<ui:define name="content">
+
+			<h:form id="form">
+				<div class="ui-fluid">
+					<p:fieldset legend="Signer 1">
+						<div class="grid">
+							<div class="col-12 md:col-12 lg:col-4 p-text-right">
+								<p:outputLabel value="Firstname" />
+								<p:inputText value="#{data.firstname1}" />
+							</div>
+							<div class="col-12 md:col-12 lg:col-4 p-text-right">
+								<p:outputLabel value="Lastname" />
+								<p:inputText value="#{data.lastname1}" />
+							</div>
+							<div class="col-12 md:col-12 lg:col-4 p-text-right">
+								<p:outputLabel value="Email" />
+								<p:inputText value="#{data.signer1}" />
+							</div>
+						</div>
+					</p:fieldset>
+					<p:spacer height="1em"></p:spacer>
+					<p:fieldset legend="Signer 2">
+						<div class="grid">
+							<div class="col-12 md:col-12 lg:col-4 p-text-right">
+								<p:outputLabel value="Firstname" />
+								<p:inputText value="#{data.firstname2}" />
+							</div>
+							<div class="col-12 md:col-12 lg:col-4 p-text-right">
+								<p:outputLabel value="Lastname" />
+								<p:inputText value="#{data.lastname2}" />
+							</div>
+							<div class="col-12 md:col-12 lg:col-4 p-text-right">
+								<p:outputLabel value="Email" />
+								<p:inputText value="#{data.signer2}" />
+							</div>
+						</div>
+					</p:fieldset>
+					<p:spacer height="1em"></p:spacer>
+					
+					<div class="grid">
+						<div class="col-12 md:col-12 lg:col-3 p-text-right">
+							<p:commandButton actionListener="#{logic.createFixed}"
+								value="Create fixed document" update="form" />
+						</div>
+						<div class="col-12 md:col-12 lg:col-6 p-text-right">
+						</div>
+						<div class="col-12 md:col-12 lg:col-3 p-text-right">
+							<p:commandButton actionListener="#{logic.createPlaceholders}"
+								value="Create document with placeholders" update="form" />
+						</div>
+					</div>
+					<div class="grid">
+						<div class="col-12 md:col-12 lg:col-4 p-text-right">
+						</div>
+						<div class="col-12 md:col-12 lg:col-4 p-text-right">
+							<p:commandButton actionListener="#{logic.send}"
+								value="Send to Sproof for Signing" update="form" />
+						</div>
+					</div>
+					<div class="grid">
+						<div class="col-12 md:col-12 lg:col-12 p-text-right">
+							<pe:documentViewer height="500" value="#{data.streamedContent}"
+								zoom="page-width" />
+						</div>
+					</div>
+				</div>
+				<div class="command-btns">
+					<p:commandLink id="cancel"
+						actionListener="#{ivyWorkflowView.cancel()}" process="@this"
+						value="Cancel" />
+				</div>
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>
