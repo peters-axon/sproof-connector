@@ -1,6 +1,9 @@
 # yaml-language-server: $schema=https://json-schema.axonivy.com/app/12.0.0/variables.json
 Variables:
-  sproofConnector:
-    # Sproof API Token
-    #[password]
-    apiToken: ${decrypt:}
+  com:
+    axonivy:
+      connector:
+        sproof:
+          # Sproof API Token
+          #[password]
+          apiToken: ${decrypt:}
