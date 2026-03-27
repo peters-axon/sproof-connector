@@ -7,3 +7,9 @@ Variables:
           # Sproof API Token
           #[password]
           apiToken: ${decrypt:}
+          # Email address of sender
+          senderEmail: ""
+          # First name of sender
+          senderFirstname: ""
+          # Last name of sender
+          senderLastname: ""

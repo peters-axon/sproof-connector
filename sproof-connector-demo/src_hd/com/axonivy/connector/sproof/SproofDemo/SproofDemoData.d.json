@@ -6,31 +6,34 @@
     "name" : "fileName",
     "modifiers" : [ "PERSISTENT" ]
   }, {
-    "name" : "fileSize",
-    "modifiers" : [ "PERSISTENT" ]
+    "name" : "fileContent",
+    "type" : "Binary"
   }, {
     "name" : "streamedContent",
     "type" : "org.primefaces.model.StreamedContent"
   }, {
-    "name" : "content",
-    "type" : "Binary"
-  }, {
-    "name" : "signer1",
+    "name" : "signer1Email",
     "modifiers" : [ "PERSISTENT" ]
   }, {
-    "name" : "signer2",
+    "name" : "signer1FirstName",
     "modifiers" : [ "PERSISTENT" ]
   }, {
-    "name" : "firstname1",
+    "name" : "signer1LastName",
     "modifiers" : [ "PERSISTENT" ]
   }, {
-    "name" : "lastname1",
+    "name" : "signer2Email",
     "modifiers" : [ "PERSISTENT" ]
   }, {
-    "name" : "firstname2",
+    "name" : "signer2FirstName",
     "modifiers" : [ "PERSISTENT" ]
   }, {
-    "name" : "lastname2",
+    "name" : "signer2LastName",
     "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "usePlaceholders",
+    "type" : "Boolean"
+  }, {
+    "name" : "createSignatureRequest",
+    "type" : "com.sproof.sign.api.v1.client.CreateSignatureRequest"
   } ]
 }

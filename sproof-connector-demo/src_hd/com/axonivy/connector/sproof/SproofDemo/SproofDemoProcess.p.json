@@ -13,12 +13,12 @@
         "signature" : "start",
         "input" : {
           "map" : {
-            "out.firstname1" : "\"Signer\"",
-            "out.firstname2" : "\"Signer\"",
-            "out.lastname1" : "\"One\"",
-            "out.lastname2" : "\"Two\"",
-            "out.signer1" : "\"signer1@sprooftest.axonivy.com\"",
-            "out.signer2" : "\"signer2@sprooftest.axonivy.com\""
+            "out.signer1Email" : "\"signer1@sprooftest.axonivy.com\"",
+            "out.signer1FirstName" : "\"Signer\"",
+            "out.signer1LastName" : "\"One\"",
+            "out.signer2Email" : "\"signer2@sprooftest.axonivy.com\"",
+            "out.signer2FirstName" : "\"Signer\"",
+            "out.signer2LastName" : "\"Two\""
           }
         },
         "guid" : "19D255987C0AAB35"
@@ -37,46 +37,6 @@
         "labelOffset" : { "x" : 10, "y" : 30 }
       }
     }, {
-      "id" : "f3",
-      "type" : "HtmlDialogEventStart",
-      "name" : "close",
-      "config" : {
-        "guid" : "19D255987C35BE3E"
-      },
-      "visual" : {
-        "at" : { "x" : 96, "y" : 160 }
-      },
-      "connect" : [
-        { "id" : "f5", "to" : "f4" }
-      ]
-    }, {
-      "id" : "f4",
-      "type" : "HtmlDialogExit",
-      "visual" : {
-        "at" : { "x" : 224, "y" : 160 },
-        "labelOffset" : { "x" : 10, "y" : 30 }
-      }
-    }, {
-      "id" : "f6",
-      "type" : "HtmlDialogEventStart",
-      "name" : "uploadDocument",
-      "config" : {
-        "guid" : "19D256D9B3C24B20"
-      },
-      "visual" : {
-        "at" : { "x" : 96, "y" : 224 }
-      },
-      "connect" : [
-        { "id" : "f8", "to" : "f7" }
-      ]
-    }, {
-      "id" : "f7",
-      "type" : "HtmlDialogEnd",
-      "visual" : {
-        "at" : { "x" : 224, "y" : 224 },
-        "labelOffset" : { "x" : 10, "y" : 30 }
-      }
-    }, {
       "id" : "f9",
       "type" : "HtmlDialogEventStart",
       "name" : "send",
@@ -87,13 +47,13 @@
         "at" : { "x" : 96, "y" : 288 }
       },
       "connect" : [
-        { "id" : "f11", "to" : "f10" }
+        { "id" : "f11", "to" : "f5" }
       ]
     }, {
       "id" : "f10",
       "type" : "HtmlDialogEnd",
       "visual" : {
-        "at" : { "x" : 224, "y" : 288 },
+        "at" : { "x" : 512, "y" : 288 },
         "labelOffset" : { "x" : 10, "y" : 30 }
       }
     }, {
@@ -104,7 +64,7 @@
         "guid" : "19D25C2E7B31842A"
       },
       "visual" : {
-        "at" : { "x" : 96, "y" : 352 }
+        "at" : { "x" : 96, "y" : 208 }
       },
       "connect" : [
         { "id" : "f14", "to" : "f20" }
@@ -113,7 +73,7 @@
       "id" : "f13",
       "type" : "HtmlDialogEnd",
       "visual" : {
-        "at" : { "x" : 352, "y" : 352 },
+        "at" : { "x" : 352, "y" : 208 },
         "labelOffset" : { "x" : 10, "y" : 30 }
       }
     }, {
@@ -124,7 +84,7 @@
         "guid" : "19D25C2F53245830"
       },
       "visual" : {
-        "at" : { "x" : 96, "y" : 416 }
+        "at" : { "x" : 96, "y" : 128 }
       },
       "connect" : [
         { "id" : "f17", "to" : "f18" }
@@ -133,7 +93,7 @@
       "id" : "f16",
       "type" : "HtmlDialogEnd",
       "visual" : {
-        "at" : { "x" : 352, "y" : 416 },
+        "at" : { "x" : 352, "y" : 128 },
         "labelOffset" : { "x" : 10, "y" : 30 }
       }
     }, {
@@ -145,15 +105,16 @@
           "code" : [
             "import com.axonivy.connector.sproof.service.SproofDemoService;",
             "",
-            "in.content = SproofDemoService.get().createDocument();",
-            "in.streamedContent = SproofDemoService.get().createStreamedContent(\"sign-fixed.pdf\", in.content);",
+            "in.fileContent = SproofDemoService.get().createDocument();",
+            "in.streamedContent = SproofDemoService.get().createStreamedContent(\"sign-fixed.pdf\", in.fileContent);",
+            "in.usePlaceholders = false;",
             "",
-            "ivy.log.info(\"Created a document with size: {0}\", in.content.toByteArray().size());"
+            "ivy.log.info(\"Created a document with size: {0}\", in.fileContent.toByteArray().size());"
           ]
         }
       },
       "visual" : {
-        "at" : { "x" : 224, "y" : 416 }
+        "at" : { "x" : 224, "y" : 128 }
       },
       "connect" : [
         { "id" : "f19", "to" : "f16", "color" : "default" }
@@ -167,20 +128,74 @@
           "code" : [
             "import com.axonivy.connector.sproof.service.SproofDemoService;",
             "",
-            "in.content = SproofDemoService.get().createDocumentWithPlaceholders(",
-            "  in.firstname1, in.lastname1, in.signer1,",
-            "  in.firstname2, in.lastname2, in.signer2);",
-            "in.streamedContent = SproofDemoService.get().createStreamedContent(\"sign-placeholders.pdf\", in.content);",
+            "in.fileContent = SproofDemoService.get().createDocumentWithPlaceholders(",
+            "  in.signer1FirstName, in.signer1LastName, in.signer1Email,",
+            "  in.signer2FirstName, in.signer2LastName, in.signer2Email);",
+            "in.streamedContent = SproofDemoService.get().createStreamedContent(\"sign-placeholders.pdf\", in.fileContent);",
+            "in.usePlaceholders = true;",
             "",
-            "ivy.log.info(\"Created a document with size: {0}\", in.content.toByteArray().size());"
+            "ivy.log.info(\"Created a document with size: {0}\", in.fileContent.toByteArray().size());"
           ]
         }
       },
       "visual" : {
-        "at" : { "x" : 224, "y" : 352 }
+        "at" : { "x" : 224, "y" : 208 }
       },
       "connect" : [
         { "id" : "f21", "to" : "f13", "color" : "default" }
+      ]
+    }, {
+      "id" : "f3",
+      "type" : "RestClientCall",
+      "name" : "Create signature request.",
+      "config" : {
+        "method" : "POST",
+        "target" : {
+          "clientId" : "d39c224c-a0d6-48f7-aa80-4203da324cef",
+          "path" : "/documents/signature"
+        },
+        "body" : {
+          "entity" : {
+            "type" : "com.sproof.sign.api.v1.client.CreateSignatureRequest",
+            "map" : {
+              "param" : "com.axonivy.connector.sproof.service.SproofService.get().prepareCreateSignatureRequest()",
+              "param.envelopeData.documentDataArray" : "[com.axonivy.connector.sproof.service.SproofService.get().prepareDocumentData(in.fileName, in.fileContent)]",
+              "param.envelopeData.usePlaceholders" : "in.usePlaceholders"
+            }
+          }
+        },
+        "response" : {
+          "entity" : {
+            "type" : "com.sproof.sign.api.v1.client.EnvelopeResponse"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 384, "y" : 400 }
+      },
+      "connect" : [
+        { "id" : "f4", "to" : "f10" }
+      ]
+    }, {
+      "id" : "f5",
+      "type" : "Script",
+      "name" : "Prepare signature request.",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import com.sproof.sign.api.v1.client.CreateSignatureRequest;",
+            "import com.axonivy.connector.sproof.service.SproofService;",
+            "// in.createSignatureRequest = SproofService.get().prepareCreateSignatureRequest();",
+            "",
+            "// in.createSignatureRequest.getEnvelopeData().addDocumentDataArrayItem(SproofService.get().prepareDocumentData(in.fileName, in.fileContent));"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 376 }
+      },
+      "connect" : [
+        { "id" : "f6", "to" : "f3", "color" : "default" }
       ]
     } ]
 }

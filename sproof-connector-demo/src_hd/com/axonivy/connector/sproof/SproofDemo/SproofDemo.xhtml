@@ -16,15 +16,15 @@
 						<div class="grid">
 							<div class="col-12 md:col-12 lg:col-4 p-text-right">
 								<p:outputLabel value="Firstname" />
-								<p:inputText value="#{data.firstname1}" />
+								<p:inputText value="#{data.signer1FirstName}" />
 							</div>
 							<div class="col-12 md:col-12 lg:col-4 p-text-right">
 								<p:outputLabel value="Lastname" />
-								<p:inputText value="#{data.lastname1}" />
+								<p:inputText value="#{data.signer1LastName}" />
 							</div>
 							<div class="col-12 md:col-12 lg:col-4 p-text-right">
 								<p:outputLabel value="Email" />
-								<p:inputText value="#{data.signer1}" />
+								<p:inputText value="#{data.signer1Email}" />
 							</div>
 						</div>
 					</p:fieldset>
@@ -33,15 +33,15 @@
 						<div class="grid">
 							<div class="col-12 md:col-12 lg:col-4 p-text-right">
 								<p:outputLabel value="Firstname" />
-								<p:inputText value="#{data.firstname2}" />
+								<p:inputText value="#{data.signer2FirstName}" />
 							</div>
 							<div class="col-12 md:col-12 lg:col-4 p-text-right">
 								<p:outputLabel value="Lastname" />
-								<p:inputText value="#{data.lastname2}" />
+								<p:inputText value="#{data.signer2LastName}" />
 							</div>
 							<div class="col-12 md:col-12 lg:col-4 p-text-right">
 								<p:outputLabel value="Email" />
-								<p:inputText value="#{data.signer2}" />
+								<p:inputText value="#{data.signer2Email}" />
 							</div>
 						</div>
 					</p:fieldset>
@@ -63,8 +63,8 @@
 						<div class="col-12 md:col-12 lg:col-4 p-text-right">
 						</div>
 						<div class="col-12 md:col-12 lg:col-4 p-text-right">
-							<p:commandButton actionListener="#{logic.send}"
-								value="Send to Sproof for Signing" update="form" />
+							<p:commandButton actionListener="#{logic.send}" disabled="#{data.usePlaceholders == null}"
+								value="#{data.usePlaceholders == null ? 'Create before sending' : data.usePlaceholders ? 'Send to Sproof for Signing with placeholders' : 'Send to Sproof for Signing'}" update="form" />
 						</div>
 					</div>
 					<div class="grid">
