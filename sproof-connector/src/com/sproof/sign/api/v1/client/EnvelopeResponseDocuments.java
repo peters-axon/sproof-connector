@@ -12,13 +12,18 @@
 
 package com.sproof.sign.api.v1.client;
 
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.sproof.sign.api.v1.client.DocumentResponseBox;
+import com.sproof.sign.api.v1.client.MemberResponseSchema;
+
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * EnvelopeResponseDocuments
  */
@@ -123,7 +128,7 @@ public class EnvelopeResponseDocuments {
 	private List<MemberResponseSchema> members = null;
 
 	@JsonProperty("member")
-	private MemberResponseSchema member = null;
+  private AllOfEnvelopeResponseDocumentsMember member = null;
 
 	@JsonProperty("boxes")
 	private List<DocumentResponseBox> boxes = null;
@@ -505,6 +510,11 @@ public class EnvelopeResponseDocuments {
 		this.linkExpires = linkExpires;
 	}
 
+  public EnvelopeResponseDocuments setDueDate(Boolean setDueDate) {
+    this.setDueDate = setDueDate;
+    return this;
+  }
+
 	/**
 	 * Get setDueDate
 	 * @return setDueDate
@@ -695,7 +705,7 @@ public class EnvelopeResponseDocuments {
 	 * Get member
 	 * @return member
 	 **/
-	public MemberResponseSchema getMember() {
+  public AllOfEnvelopeResponseDocumentsMember getMember() {
 		return member;
 	}
 
