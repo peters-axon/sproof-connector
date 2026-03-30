@@ -44,6 +44,8 @@ public class SproofFeature extends JsonFeature {
 				mapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
 				mapper.addMixIn(DocumentRecipientDetails.class, NoTypeInfoMixIn.class);
 				mapper.addMixIn(AnyOfMemberSignaturePosition.class, NoTypeInfoMixIn.class);
+				mapper.addMixIn(MemberSignaturePositionResponse.class, NoTypeInfoMixIn.class);
+
 
 				return mapper;
 			}
@@ -82,5 +84,5 @@ public class SproofFeature extends JsonFeature {
 	}
 
 	@JsonTypeInfo(use = JsonTypeInfo.Id.NONE)
-	public abstract static class NoTypeInfoMixIn {} 
+	public abstract static class NoTypeInfoMixIn {}
 }

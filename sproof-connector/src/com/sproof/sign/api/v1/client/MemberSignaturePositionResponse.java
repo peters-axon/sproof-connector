@@ -12,8 +12,11 @@
 
 package com.sproof.sign.api.v1.client;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 /**
  * The signature position(s) for this member. Contains position data when the member has a pending signature on the document. Will be an empty array if no signature is required or if the member has already signed.
+*/
 @JsonTypeInfo(
   use = JsonTypeInfo.Id.NAME,
   include = JsonTypeInfo.As.PROPERTY,
@@ -21,7 +24,6 @@ package com.sproof.sign.api.v1.client;
 @JsonSubTypes({
   @JsonSubTypes.Type(value = SignaturePositionResponse.class, name = "SignaturePositionResponse")
 })
- */
 public interface MemberSignaturePositionResponse {
 
 }
