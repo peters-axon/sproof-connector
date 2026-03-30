@@ -25,6 +25,9 @@ import com.sproof.sign.api.v1.client.SignaturePositionResponse;
 
 import ch.ivyteam.ivy.rest.client.mapper.JsonFeature;
 
+/**
+ * This feature fixes some openapi problems with a strongly typed language like Java.
+ */
 public class SproofFeature extends JsonFeature {
 	public static SimpleModule SPROOF_MODULE = new SimpleModule()
 			.addDeserializer(MemberSignaturePositionResponse.class, new MemberSignaturePositionResponseDeserializer());
@@ -39,13 +42,15 @@ public class SproofFeature extends JsonFeature {
 				mapper.registerModules(
 						SPROOF_MODULE,
 						new JavaTimeModule());
+				// Do not send null values.
 				mapper.setDefaultPropertyInclusion(Include.NON_NULL);
+				// Use properties instead of getter. This avoids problems with com.sproof.sign.api.v1.client.EnvelopeResponseDocuments.setDueDate(Boolean) which is not a setter.
 				mapper.setVisibility(PropertyAccessor.ALL, Visibility.NONE);
 				mapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
+				// Get rid of type info which is not sent or used by Sproof.
 				mapper.addMixIn(DocumentRecipientDetails.class, NoTypeInfoMixIn.class);
 				mapper.addMixIn(AnyOfMemberSignaturePosition.class, NoTypeInfoMixIn.class);
 				mapper.addMixIn(MemberSignaturePositionResponse.class, NoTypeInfoMixIn.class);
-
 
 				return mapper;
 			}
