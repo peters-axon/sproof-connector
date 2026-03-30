@@ -104,9 +104,9 @@
         "output" : {
           "code" : [
             "import com.axonivy.connector.sproof.service.SproofDemoService;",
-            "",
+            "in.fileName = \"sign-fixed.pdf\";",
             "in.fileContent = SproofDemoService.get().createDocument();",
-            "in.streamedContent = SproofDemoService.get().createStreamedContent(\"sign-fixed.pdf\", in.fileContent);",
+            "in.streamedContent = SproofDemoService.get().createStreamedContent(in.fileName, in.fileContent);",
             "in.usePlaceholders = false;",
             "",
             "ivy.log.info(\"Created a document with size: {0}\", in.fileContent.toByteArray().size());"
@@ -127,11 +127,11 @@
         "output" : {
           "code" : [
             "import com.axonivy.connector.sproof.service.SproofDemoService;",
-            "",
+            "in.fileName = \"sign-placeholders.pdf\";",
             "in.fileContent = SproofDemoService.get().createDocumentWithPlaceholders(",
-            "  in.signer1FirstName, in.signer1LastName, in.signer1Email,",
-            "  in.signer2FirstName, in.signer2LastName, in.signer2Email);",
-            "in.streamedContent = SproofDemoService.get().createStreamedContent(\"sign-placeholders.pdf\", in.fileContent);",
+            "  in.signer1Email, in.signer1FirstName, in.signer1LastName,",
+            "  in.signer2Email, in.signer2FirstName, in.signer2LastName);  ",
+            "in.streamedContent = SproofDemoService.get().createStreamedContent(in.fileName, in.fileContent);",
             "in.usePlaceholders = true;",
             "",
             "ivy.log.info(\"Created a document with size: {0}\", in.fileContent.toByteArray().size());"
@@ -158,9 +158,7 @@
           "entity" : {
             "type" : "com.sproof.sign.api.v1.client.CreateSignatureRequest",
             "map" : {
-              "param" : "com.axonivy.connector.sproof.service.SproofService.get().prepareCreateSignatureRequest()",
-              "param.envelopeData.documentDataArray" : "[com.axonivy.connector.sproof.service.SproofService.get().prepareDocumentData(in.fileName, in.fileContent)]",
-              "param.envelopeData.usePlaceholders" : "in.usePlaceholders"
+              "param" : "in.createSignatureRequest"
             }
           }
         },
@@ -171,7 +169,7 @@
         }
       },
       "visual" : {
-        "at" : { "x" : 384, "y" : 400 }
+        "at" : { "x" : 384, "y" : 288 }
       },
       "connect" : [
         { "id" : "f4", "to" : "f10" }
@@ -183,16 +181,49 @@
       "config" : {
         "output" : {
           "code" : [
-            "import com.sproof.sign.api.v1.client.CreateSignatureRequest;",
+            "import com.sproof.sign.api.v1.client.Recipient;",
+            "import com.sproof.sign.api.v1.client.SignaturePosition;",
+            "import com.sproof.sign.api.v1.client.DocumentRecipientDetails;",
+            "import com.axonivy.connector.sproof.client.DocumentSignerDetails;",
+            "import com.sproof.sign.api.v1.client.Signer;",
+            "import com.axonivy.connector.sproof.service.SproofDemoService;",
+            "import com.sproof.sign.api.v1.client.Document;",
             "import com.axonivy.connector.sproof.service.SproofService;",
-            "// in.createSignatureRequest = SproofService.get().prepareCreateSignatureRequest();",
             "",
-            "// in.createSignatureRequest.getEnvelopeData().addDocumentDataArrayItem(SproofService.get().prepareDocumentData(in.fileName, in.fileContent));"
+            "SproofService sproof = SproofService.get();",
+            "",
+            "in.createSignatureRequest = sproof.createCreateSignatureRequest();",
+            "",
+            "Document document = sproof.createDocumentData(in.fileName, in.fileContent);",
+            "",
+            "in.createSignatureRequest.getEnvelopeData()",
+            "  .setUsePlaceholders(in.usePlaceholders)",
+            "  .addDocumentDataArrayItem(document);",
+            "",
+            "if(!in.usePlaceholders) {",
+            "  List signers = SproofDemoService.get().createSigners(",
+            "    in.signer1Email, in.signer1FirstName, in.signer1LastName,",
+            "    in.signer2Email, in.signer2FirstName, in.signer2LastName);",
+            "",
+            "  ivy.log.info(\"Signers: {0}\", signers.size());",
+            "",
+            "  Number y = 0.6;",
+            "",
+            "  for(Signer signer : signers) {",
+            "    in.createSignatureRequest.inviteData.addRecipientsItem(new Recipient().email(signer.email).firstName(signer.firstName).lastName(signer.lastName));",
+            "    DocumentSignerDetails sd = new DocumentSignerDetails();",
+            "    sd.addSignaturePosition(new SignaturePosition().page(0).x(0.3).y(y).width(0.3).height(0.1));",
+            "    document.putRecipientDetailsItem(signer.email, sd);",
+            "    y += 0.2;",
+            "  }",
+            "}",
+            "",
+            "SproofDemoService.get().check(in.createSignatureRequest);"
           ]
         }
       },
       "visual" : {
-        "at" : { "x" : 224, "y" : 376 }
+        "at" : { "x" : 224, "y" : 288 }
       },
       "connect" : [
         { "id" : "f6", "to" : "f3", "color" : "default" }

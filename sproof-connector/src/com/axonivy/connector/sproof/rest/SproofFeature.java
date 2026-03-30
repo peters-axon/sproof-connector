@@ -6,7 +6,10 @@ import javax.ws.rs.Priorities;
 import javax.ws.rs.core.FeatureContext;
 import javax.ws.rs.core.MediaType;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -15,6 +18,7 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+import com.sproof.sign.api.v1.client.DocumentRecipientDetails;
 import com.sproof.sign.api.v1.client.MemberSignaturePositionResponse;
 import com.sproof.sign.api.v1.client.SignaturePositionResponse;
 
@@ -35,6 +39,9 @@ public class SproofFeature extends JsonFeature {
 						SPROOF_MODULE,
 						new JavaTimeModule());
 				mapper.setDefaultPropertyInclusion(Include.NON_NULL);
+				mapper.setVisibility(PropertyAccessor.ALL, Visibility.NONE);
+				mapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
+				mapper.addMixIn(DocumentRecipientDetails.class, NoTypeInfoMixIn.class);
 
 				return mapper;
 			}
@@ -71,4 +78,7 @@ public class SproofFeature extends JsonFeature {
 			return parser.getCodec().treeToValue(node, SignaturePositionResponse.class);
 		}
 	}
+
+	@JsonTypeInfo(use = JsonTypeInfo.Id.NONE)
+	public abstract static class NoTypeInfoMixIn {} 
 }

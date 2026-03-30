@@ -3,6 +3,7 @@ package com.axonivy.connector.sproof.service;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.model.DefaultStreamedContent;
@@ -12,11 +13,13 @@ import com.aspose.pdf.Color;
 import com.aspose.pdf.Document;
 import com.aspose.pdf.FontRepository;
 import com.aspose.pdf.TextFragment;
+import com.sproof.sign.api.v1.client.CreateSignatureRequest;
 import com.sproof.sign.api.v1.client.Signer;
 
 import ch.ivyteam.ivy.addons.docfactory.aspose.AsposeProduct;
 import ch.ivyteam.ivy.addons.docfactory.aspose.LicenseLoader;
 import ch.ivyteam.ivy.bpm.error.BpmError;
+import ch.ivyteam.ivy.environment.Ivy;
 
 public class SproofDemoService {
 	private static final SproofDemoService INSTANCE = new SproofDemoService();
@@ -70,7 +73,7 @@ public class SproofDemoService {
 		}
 	}
 
-	public byte[] createDocumentWithPlaceholders(String firstname1, String lastname1, String signer1, String firstname2, String lastname2, String signer2) {
+	public byte[] createDocumentWithPlaceholders(String signer1Email, String signer1FirstName, String signer1LastName, String signer2Email, String signer2FirstName, String signer2LastName) {
 		try (var doc = new Document()) {
 			var page = doc.getPages().add();
 
@@ -79,19 +82,12 @@ public class SproofDemoService {
 
 			page.getParagraphs().add(text(null, null, null, ""));
 
-			var signers = new ArrayList<Signer>();
-			var order = 1;
-			if(StringUtils.isNotBlank(signer1)) {
-				signers.add(createSigner(firstname1, lastname1, signer1, order++));
-			}
-			if(StringUtils.isNotBlank(signer2)) {
-				signers.add(createSigner(firstname2, lastname2, signer2, order++));
-			}
+			var signers = createSigners(signer1Email, signer1FirstName, signer1LastName, signer2Email, signer2FirstName, signer2LastName);
 
 			for (var signer : signers) {
-				page.getParagraphs().add(text("Helvetica-Bold", null, null, "Signare %d".formatted(signer.getSigningOrder())));
-				page.getParagraphs().add(text("Helvetica", 64, null, ""));
+				page.getParagraphs().add(text("Helvetica", 128, null, ""));
 				page.getParagraphs().add(text("Helvetica", 6, Color.getLightGray(), "{sproof{%s, %s, %s, %d, true}sproof}".formatted(signer.getFirstName(), signer.getLastName(), signer.getEmail(), signer.getSigningOrder())));
+				page.getParagraphs().add(text("Helvetica-Bold", null, null, "Signare %d".formatted(signer.getSigningOrder())));
 			}
 
 			try (var os = new ByteArrayOutputStream()) {
@@ -104,7 +100,6 @@ public class SproofDemoService {
 			throw BpmError.create("createDocument").withCause(e).build();
 		}
 	}
-
 
 	protected TextFragment text(String font, Integer size, Color color, String text) {
 		var textFragment = new TextFragment(text);
@@ -121,12 +116,43 @@ public class SproofDemoService {
 		return textFragment;
 	}
 
+	/**
+	 * Create a list of signers.
+	 * 
+	 * @param signer1Email
+	 * @param signer1FirstName
+	 * @param signer1LastName
+	 * @param signer2Email
+	 * @param signer2FirstName
+	 * @param signer2LastName
+	 * @return
+	 */
+	public List<Signer> createSigners(String signer1Email, String signer1FirstName, String signer1LastName,
+			String signer2Email, String signer2FirstName, String signer2LastName) {
+		var signers = new ArrayList<Signer>();
 
-	protected Signer createSigner(String firstname, String lastname, String email, int signingOrder) {
+		var order = 1;
+
+		if(StringUtils.isNoneBlank(signer1Email, signer1FirstName, signer1LastName)) {
+			signers.add(createSigner(signer1Email, signer1FirstName, signer1LastName, order++));
+		}
+
+		if(StringUtils.isNoneBlank(signer2Email, signer2FirstName, signer2LastName)) {
+			signers.add(createSigner(signer2Email, signer2FirstName, signer2LastName, order++));
+		}
+
+		return signers;
+	}
+
+	protected Signer createSigner(String email, String firstName, String lastName, int signingOrder) {
 		return new Signer()
-				.firstName(StringUtils.isNotEmpty(firstname) ? firstname : "Firstname")
-				.lastName(StringUtils.isNotEmpty(lastname) ? lastname : "Lastname")
+				.firstName(StringUtils.isNotEmpty(firstName) ? firstName : "Firstname")
+				.lastName(StringUtils.isNotEmpty(lastName) ? lastName : "Lastname")
 				.email(email)
 				.signingOrder(signingOrder);
+	}
+
+	public void check(CreateSignatureRequest rq) {
+		Ivy.log().info("Req: {0}", rq);
 	}
 }
