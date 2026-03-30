@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.StreamReadFeature;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
@@ -29,8 +30,7 @@ import ch.ivyteam.ivy.rest.client.mapper.JsonFeature;
  * This feature fixes some openapi problems with a strongly typed language like Java.
  */
 public class SproofFeature extends JsonFeature {
-	public static SimpleModule SPROOF_MODULE = new SimpleModule()
-			.addDeserializer(MemberSignaturePositionResponse.class, new MemberSignaturePositionResponseDeserializer());
+	public static SimpleModule SPROOF_MODULE = new SproofModule().addDeserializer(MemberSignaturePositionResponse.class, new MemberSignaturePositionResponseDeserializer());
 
 	@Override
 	public boolean configure(FeatureContext context) {
@@ -42,15 +42,6 @@ public class SproofFeature extends JsonFeature {
 				mapper.registerModules(
 						SPROOF_MODULE,
 						new JavaTimeModule());
-				// Do not send null values.
-				mapper.setDefaultPropertyInclusion(Include.NON_NULL);
-				// Use properties instead of getter. This avoids problems with com.sproof.sign.api.v1.client.EnvelopeResponseDocuments.setDueDate(Boolean) which is not a setter.
-				mapper.setVisibility(PropertyAccessor.ALL, Visibility.NONE);
-				mapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
-				// Get rid of type info which is not sent or used by Sproof.
-				mapper.addMixIn(DocumentRecipientDetails.class, NoTypeInfoMixIn.class);
-				mapper.addMixIn(AnyOfMemberSignaturePosition.class, NoTypeInfoMixIn.class);
-				mapper.addMixIn(MemberSignaturePositionResponse.class, NoTypeInfoMixIn.class);
 
 				return mapper;
 			}
@@ -60,6 +51,27 @@ public class SproofFeature extends JsonFeature {
 		context.register(provider, Priorities.ENTITY_CODER); 
 		return true;
 	}
+
+	public static class SproofModule extends SimpleModule {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public void setupModule(SetupContext ctx) {
+			super.setupModule(ctx);
+			var mapper = (ObjectMapper)ctx.getOwner();
+			// Do not send null values.
+			mapper.setDefaultPropertyInclusion(Include.NON_NULL);
+			// Use properties instead of getter. This avoids problems with com.sproof.sign.api.v1.client.EnvelopeResponseDocuments.setDueDate(Boolean) which is not a setter.
+			mapper.setVisibility(PropertyAccessor.ALL, Visibility.NONE);
+			mapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
+			// Get rid of type info which is not sent or used by Sproof.
+			mapper.addMixIn(DocumentRecipientDetails.class, NoTypeInfoMixIn.class);
+			mapper.addMixIn(AnyOfMemberSignaturePosition.class, NoTypeInfoMixIn.class);
+			mapper.addMixIn(MemberSignaturePositionResponse.class, NoTypeInfoMixIn.class);
+			mapper.enable(StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION.mappedFeature());
+		}
+	}
+
 
 	/**
 	 * Parse signaturePosition.

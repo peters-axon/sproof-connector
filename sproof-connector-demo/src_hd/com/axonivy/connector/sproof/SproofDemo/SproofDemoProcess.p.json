@@ -147,7 +147,7 @@
     }, {
       "id" : "f3",
       "type" : "RestClientCall",
-      "name" : "Create signature request.",
+      "name" : "Create signature request",
       "config" : {
         "method" : "POST",
         "target" : {
@@ -164,7 +164,14 @@
         },
         "response" : {
           "entity" : {
-            "type" : "com.sproof.sign.api.v1.client.EnvelopeResponse"
+            "type" : "com.sproof.sign.api.v1.client.EnvelopeResponse",
+            "code" : [
+              "import com.sproof.sign.api.v1.client.EnvelopeResponseDocuments;",
+              "if(result.documents.getFirst() != null) {",
+              "  EnvelopeResponseDocuments doc = result.documents.getFirst() as EnvelopeResponseDocuments;",
+              "  in.memberId = doc.member.id;",
+              "}"
+            ]
           }
         }
       },
@@ -177,7 +184,7 @@
     }, {
       "id" : "f5",
       "type" : "Script",
-      "name" : "Prepare signature request.",
+      "name" : "Prepare signature request",
       "config" : {
         "output" : {
           "code" : [
@@ -227,6 +234,76 @@
       },
       "connect" : [
         { "id" : "f6", "to" : "f3", "color" : "default" }
+      ]
+    }, {
+      "id" : "f7",
+      "type" : "HtmlDialogEventStart",
+      "name" : "fetch",
+      "config" : {
+        "guid" : "19D3F89391914AF5"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 384 }
+      },
+      "connect" : [
+        { "id" : "f22", "to" : "f23" }
+      ]
+    }, {
+      "id" : "f8",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 384 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f23",
+      "type" : "RestClientCall",
+      "name" : "Get document",
+      "config" : {
+        "target" : {
+          "clientId" : "d39c224c-a0d6-48f7-aa80-4203da324cef",
+          "path" : "/documents/{memberId}",
+          "templateParams" : {
+            "memberId" : "in.memberId"
+          },
+          "queryParams" : {
+            "token" : "com.axonivy.connector.sproof.service.SproofService.get().getApiToken()"
+          }
+        },
+        "response" : {
+          "entity" : {
+            "type" : "com.sproof.sign.api.v1.client.EnvelopeResponseDocuments",
+            "code" : [
+              "import com.sproof.sign.api.v1.client.MemberResponseSchema;",
+              "import java.util.Iterator;",
+              "import java.io.PrintWriter;",
+              "import java.io.StringWriter;",
+              "",
+              "StringWriter sw = new StringWriter();",
+              "PrintWriter pw = new PrintWriter(sw);",
+              "",
+              "pw.println(\"Status of request %s:\".formatted(result.name));",
+              "pw.println(\"Signing round: %s\".formatted(result.signingRound));",
+              "",
+              "Iterator it = result.members.iterator();",
+              "",
+              "while(it.hasNext()) {",
+              "  MemberResponseSchema mr = it.next() as MemberResponseSchema;",
+              "  pw.println(\"Member: %s signed at: %s (declined at: %s)\".formatted(mr.#email, mr.#signedAt, mr.#declinedAt));",
+              "",
+              "}",
+              "",
+              "",
+              "in.out = sw.toString();"
+            ]
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 384 }
+      },
+      "connect" : [
+        { "id" : "f24", "to" : "f8", "color" : "default" }
       ]
     } ]
 }

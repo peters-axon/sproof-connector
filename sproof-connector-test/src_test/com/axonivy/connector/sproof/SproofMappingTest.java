@@ -24,8 +24,14 @@ public class SproofMappingTest {
 	}
 
 	@Test
-	public void testParsingResponse1() throws JsonMappingException, JsonProcessingException {
-		var envRsp = MAPPER.readValue(SproofMessages.response1, EnvelopeResponse.class);
+	public void testParsingSigRqRsp1() throws JsonMappingException, JsonProcessingException {
+		var envRsp = MAPPER.readValue(SproofMessages.SIG_RQ_RSP_1, EnvelopeResponse.class);
+		assertThat(envRsp).isNotNull();
+	}	
+
+	@Test
+	public void testParsingGetDocRsp1() throws JsonMappingException, JsonProcessingException {
+		var envRsp = MAPPER.readValue(SproofMessages.GET_DOC_RSP_1, EnvelopeResponse.class);
 		assertThat(envRsp).isNotNull();
 	}	
 }

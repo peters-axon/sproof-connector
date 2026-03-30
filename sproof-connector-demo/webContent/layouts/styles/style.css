@@ -1,0 +1,4 @@
+body .output {
+	font-family: monospace;
+	color: var(--text-color);
+}
