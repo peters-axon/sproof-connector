@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+import com.sproof.sign.api.v1.client.AnyOfMemberSignaturePosition;
 import com.sproof.sign.api.v1.client.DocumentRecipientDetails;
 import com.sproof.sign.api.v1.client.MemberSignaturePositionResponse;
 import com.sproof.sign.api.v1.client.SignaturePositionResponse;
@@ -42,6 +43,7 @@ public class SproofFeature extends JsonFeature {
 				mapper.setVisibility(PropertyAccessor.ALL, Visibility.NONE);
 				mapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
 				mapper.addMixIn(DocumentRecipientDetails.class, NoTypeInfoMixIn.class);
+				mapper.addMixIn(AnyOfMemberSignaturePosition.class, NoTypeInfoMixIn.class);
 
 				return mapper;
 			}
