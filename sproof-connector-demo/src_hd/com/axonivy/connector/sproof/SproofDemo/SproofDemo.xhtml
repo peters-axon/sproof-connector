@@ -72,14 +72,14 @@
 						</div>
 						<div class="col-12 md:col-12 lg:col-4 p-text-right">
 							<p:outputLabel for="@next" value="Member Id of signature request"/>
-							<p:inputText value="#{data.memberId}"/>
+							<p:inputText value="#{data.memberId}" update="form"/>
 						</div>
 					</div>
 					<div class="grid">
 						<div class="col-12 md:col-12 lg:col-4 p-text-right">
 						</div>
 						<div class="col-12 md:col-12 lg:col-4 p-text-right">
-							<p:commandButton actionListener="#{logic.fetch}" disabled="#{empty data.memberId}"
+							<p:commandButton actionListener="#{logic.fetch}"
 								value="Fetch from Sproof" update="form" />
 						</div>
 					</div>

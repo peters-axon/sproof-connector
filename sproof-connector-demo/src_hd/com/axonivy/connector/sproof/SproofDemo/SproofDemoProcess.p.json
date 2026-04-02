@@ -13,6 +13,7 @@
         "signature" : "start",
         "input" : {
           "map" : {
+            "out.memberId" : "\"0415d107da1e181ff12702b0128d9938f94095e4fda85201276706c4cfb7c5c3db4c1f\"",
             "out.signer1Email" : "\"signer1@sprooftest.axonivy.com\"",
             "out.signer1FirstName" : "\"Signer\"",
             "out.signer1LastName" : "\"One\"",
@@ -192,7 +193,7 @@
             "import com.sproof.sign.api.v1.client.SignaturePosition;",
             "import com.sproof.sign.api.v1.client.DocumentRecipientDetails;",
             "import com.axonivy.connector.sproof.client.DocumentSignerDetails;",
-            "import com.sproof.sign.api.v1.client.Signer;",
+            "import com.sproof.sign.api.v1.client.SproofSigner;",
             "import com.axonivy.connector.sproof.service.SproofDemoService;",
             "import com.sproof.sign.api.v1.client.Document;",
             "import com.axonivy.connector.sproof.service.SproofService;",
@@ -216,7 +217,7 @@
             "",
             "  Number y = 0.6;",
             "",
-            "  for(Signer signer : signers) {",
+            "  for(SproofSigner signer : signers) {",
             "    in.createSignatureRequest.inviteData.addRecipientsItem(new Recipient().email(signer.email).firstName(signer.firstName).lastName(signer.lastName));",
             "    DocumentSignerDetails sd = new DocumentSignerDetails();",
             "    sd.addSignaturePosition(new SignaturePosition().page(0).x(0.3).y(y).width(0.3).height(0.1));",
@@ -272,8 +273,9 @@
         },
         "response" : {
           "entity" : {
-            "type" : "com.sproof.sign.api.v1.client.EnvelopeResponseDocuments",
+            "type" : "com.sproof.sign.api.v1.client.SproofDocument",
             "code" : [
+              "import com.sproof.sign.api.v1.client.SproofMember;",
               "import com.sproof.sign.api.v1.client.MemberResponseSchema;",
               "import java.util.Iterator;",
               "import java.io.PrintWriter;",
@@ -284,12 +286,13 @@
               "",
               "pw.println(\"Status of request %s:\".formatted(result.name));",
               "pw.println(\"Signing round: %s\".formatted(result.signingRound));",
+              "pw.println(\"All members signed: %s\".formatted(result.allMembersSigned));",
               "",
               "Iterator it = result.members.iterator();",
               "",
               "while(it.hasNext()) {",
-              "  MemberResponseSchema mr = it.next() as MemberResponseSchema;",
-              "  pw.println(\"Member: %s signed at: %s (declined at: %s)\".formatted(mr.#email, mr.#signedAt, mr.#declinedAt));",
+              "  SproofMember member = it.next() as SproofMember;",
+              "  pw.println(\"Member: %s signed at: %s (declined at: %s)\".formatted(member.#email, member.#signedAt, member.#declinedAt));",
               "",
               "}",
               "",

@@ -32,42 +32,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	<profiles>
-		<profile>
-			<id>generate-api</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.openapitools</groupId>
-						<artifactId>openapi-generator-maven-plugin</artifactId>
-						<version>7.21.0</version>
-						<executions>
-							<execution>
-								<goals>
-									<goal>generate</goal>
-								</goals>
-								<configuration>
-									<generatorName>java</generatorName>
-									<inputSpec>${project.basedir}/src/openapi.json</inputSpec>
-									<output>${project.basedir}/src</output>
-									<configurationFile>${project.basedir}/src/openapi-config.json</configurationFile>
-									<!--
-									<global-property>models</global-property>
-									-->
-									<modelPackage>com.sproof.sign.api.v1.client</modelPackage>
-									<sourceFolder></sourceFolder>
-									<skipValidateSpec>true</skipValidateSpec>
-									<generateApis>false</generateApis>
-									<generateModels>true</generateModels>
-									<generateModelTests>false</generateModelTests>
-									<generateModelDocumentation>false</generateModelDocumentation>
-									<generateSupportingFiles>false</generateSupportingFiles>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 </project>

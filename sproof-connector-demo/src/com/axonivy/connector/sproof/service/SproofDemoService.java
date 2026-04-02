@@ -14,7 +14,7 @@ import com.aspose.pdf.Document;
 import com.aspose.pdf.FontRepository;
 import com.aspose.pdf.TextFragment;
 import com.sproof.sign.api.v1.client.CreateSignatureRequest;
-import com.sproof.sign.api.v1.client.Signer;
+import com.sproof.sign.api.v1.client.SproofSigner;
 
 import ch.ivyteam.ivy.addons.docfactory.aspose.AsposeProduct;
 import ch.ivyteam.ivy.addons.docfactory.aspose.LicenseLoader;
@@ -127,9 +127,9 @@ public class SproofDemoService {
 	 * @param signer2LastName
 	 * @return
 	 */
-	public List<Signer> createSigners(String signer1Email, String signer1FirstName, String signer1LastName,
+	public List<SproofSigner> createSigners(String signer1Email, String signer1FirstName, String signer1LastName,
 			String signer2Email, String signer2FirstName, String signer2LastName) {
-		var signers = new ArrayList<Signer>();
+		var signers = new ArrayList<SproofSigner>();
 
 		var order = 1;
 
@@ -144,8 +144,8 @@ public class SproofDemoService {
 		return signers;
 	}
 
-	protected Signer createSigner(String email, String firstName, String lastName, int signingOrder) {
-		return new Signer()
+	protected SproofSigner createSigner(String email, String firstName, String lastName, int signingOrder) {
+		return new SproofSigner()
 				.firstName(StringUtils.isNotEmpty(firstName) ? firstName : "Firstname")
 				.lastName(StringUtils.isNotEmpty(lastName) ? lastName : "Lastname")
 				.email(email)
