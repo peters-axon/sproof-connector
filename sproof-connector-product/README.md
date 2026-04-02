@@ -15,12 +15,10 @@ signers. You must provide each person’s first name, last name, and email addre
 If any of this information is missing, the person will be ignored in this demo for the sake of simplicity. 
 *Please note that Sproof will send signature requests to the provided email addresses!*
 
-
 The demo shows a static and a dynamic method for creating signature documents.
 
 Once the document has been created, it can be sent to Sproof for signature with the click of a button. Sending the document initiates the signature process in Sproof, and signers are prompted to sign.
 The API provides a so-called `Member Id` for identification, which is displayed in the interface (or can also be entered manually).
-
 
 Clicking *Fetch* retrieves the current state of the document from Sproof and displays it on the page. (Another option, which is not shown in this demo, is to use a `callbackUrl`, which Sproof will call upon certain events and which could, for example, be connected to a REST service provided by AxonIvy.)
 
@@ -36,7 +34,9 @@ within the document for their signature. This approach is suitable when the docu
 A dynamic document is created that contains placeholders for signers at specific locations.
 This approach is ideal when documents can vary in size (such as
 invoices with a variable number of items or contracts with optional sections). In this case,
-the exact position of a signature within the document is unknown in advance.
+the exact position of a signature within the document is unknown in advance. In this demo,
+placeholders are shown in light grey so they are easy to see. In productive environments
+placeholders can be made invisible.
 
 ## Setup
 
