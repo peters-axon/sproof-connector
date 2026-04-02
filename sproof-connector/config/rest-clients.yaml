@@ -191,5 +191,5 @@ RestClients:
     Properties:
       JSON.Serialization.PROPERTY_INCLUSION: NON_NULL
     OpenAPI:
-      SpecUrl: file:///C:/dev/AxonIvy/marketplace/sproof/signsproofcom-api-documentation.json
+      SpecUrl: file:///C:/dev/AxonIvy/marketplace/sproof/ws/sproof-connector-modules/sproof-connector/src/openapi-corrected.json
       Namespace: com.sproof.sign.api.v1.client
