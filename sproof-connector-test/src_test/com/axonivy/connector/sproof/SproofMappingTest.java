@@ -12,6 +12,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sproof.sign.api.v1.client.EnvelopeResponse;
 
+/**
+ * Test the corrected parsing.
+ */
 public class SproofMappingTest {
 	private static final ObjectMapper MAPPER;
 
@@ -32,6 +35,12 @@ public class SproofMappingTest {
 	@Test
 	public void testParsingGetDocRsp1() throws JsonMappingException, JsonProcessingException {
 		var envRsp = MAPPER.readValue(SproofMessages.GET_DOC_RSP_1, EnvelopeResponse.class);
+		assertThat(envRsp).isNotNull();
+	}	
+
+	@Test
+	public void testParsingGetDocRsp2() throws JsonMappingException, JsonProcessingException {
+		var envRsp = MAPPER.readValue(SproofMessages.GET_DOC_RSP_2, EnvelopeResponse.class);
 		assertThat(envRsp).isNotNull();
 	}	
 }
