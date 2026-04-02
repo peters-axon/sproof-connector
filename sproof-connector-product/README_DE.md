@@ -1,14 +1,9 @@
-<!--
-Dear developer !     
-
-When you create your very valuable documentation, please be aware that this  is not only published on github. With this file we provide a German translation of the description-tab, i.e. https://market.axonivy.com/adobe-acrobat-connector#tab-description. Please contact us if you need support with the German translation.
--->
-
 # Sproof Connector
 
-Bitte übersetze mindestens das "Description"-Chapter aus https://github.com/axonivy-market/sproof-connector/blob/master/sproof-connector-product/README.md. Es wird auf unserer Homepage angezeigt.
-Falls Du darüber hinaus auch die anderen Chapter übersetzt, werden auch diese auf der Homepage auf Deutsch angezeigt.
+Sproof ist eine moderne Lösung für digitale Signaturen aus Österreich. Dieser Connector liefert eine
+Anbindung von Sproof an AxonIvy.
 
-<!--
-Die Erläuterungen unter „MEIN-PRODUKT-NAME“ werden z.B. für den  Adobe Konnektor hier angezeigt: https://market.axonivy.com/adobe-acrobat-connector#tab-description wenn ein Nutzer Deutsch als Anzeigesprache ausgewählt hat.
--->
+Das Sproof API wird als REST Lösung publiziert und in Ivy als REST Client eingebunden. Der Connector
+liefert das API so wie es ist um keine unerwünschten Einschränkungen des APIs vorzunehmen. Ein Demo
+zeigt zwei einfache Varianten eines typischen Signaturablaufes. Wie im weiteren Verlauf beschrieben
+wird, kann es sein, dass weiterführende Calls eventuell kleine Anpassungen des Connectors erfordern.
