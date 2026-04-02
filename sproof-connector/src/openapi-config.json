@@ -1,6 +1,0 @@
-{
-  "modelPackage": "com.sproof.sign.api.v1.client",
-  "sourceFolder": ".",
-  "library": "native",
-  "serializationLibrary": "jackson"
-}
