@@ -1,10 +1,10 @@
 {
   "$schema" : "https://json-schema.axonivy.com/data-class/12.0.1/data-class.json",
   "simpleName" : "SproofDemoData",
-  "namespace" : "com.axonivy.connector.sproof.SproofDemo",
+  "namespace" : "com.axonivy.connector.sproof.demo.SproofDemo",
   "fields" : [ {
     "name" : "fileName",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "String"
   }, {
     "name" : "fileContent",
     "type" : "Binary"
@@ -13,22 +13,22 @@
     "type" : "org.primefaces.model.StreamedContent"
   }, {
     "name" : "signer1Email",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "String"
   }, {
     "name" : "signer1FirstName",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "String"
   }, {
     "name" : "signer1LastName",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "String"
   }, {
     "name" : "signer2Email",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "String"
   }, {
     "name" : "signer2FirstName",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "String"
   }, {
     "name" : "signer2LastName",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "String"
   }, {
     "name" : "usePlaceholders",
     "type" : "Boolean"
@@ -37,9 +37,9 @@
     "type" : "com.sproof.sign.api.v1.client.CreateSignatureRequest"
   }, {
     "name" : "memberId",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "String"
   }, {
     "name" : "out",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "String"
   } ]
 }

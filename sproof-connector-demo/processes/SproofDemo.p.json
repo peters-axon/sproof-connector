@@ -35,7 +35,7 @@
       "type" : "DialogCall",
       "name" : "Sproof Demo",
       "config" : {
-        "dialog" : "com.axonivy.connector.sproof.SproofDemo:start()"
+        "dialog" : "com.axonivy.connector.sproof.demo.SproofDemo:start()"
       },
       "visual" : {
         "at" : { "x" : 224, "y" : 64 }

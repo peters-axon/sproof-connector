@@ -3,7 +3,7 @@
   "id" : "19D255987BFC08D2",
   "kind" : "HTML_DIALOG",
   "config" : {
-    "data" : "com.axonivy.connector.sproof.SproofDemo.SproofDemoData"
+    "data" : "com.axonivy.connector.sproof.demo.SproofDemo.SproofDemoData"
   },
   "elements" : [ {
       "id" : "f0",
