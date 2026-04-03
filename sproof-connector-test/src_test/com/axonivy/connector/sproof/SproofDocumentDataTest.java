@@ -6,14 +6,13 @@ import java.util.Base64;
 
 import org.junit.jupiter.api.Test;
 
+import com.axonivy.connector.sproof.rest.SproofFeature;
 import com.axonivy.connector.sproof.service.SproofService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sproof.sign.api.v1.client.Document;
-
-import com.axonivy.connector.sproof.rest.SproofFeature;
 
 public class SproofDocumentDataTest {
 	private static final ObjectMapper MAPPER;
@@ -56,7 +55,7 @@ public class SproofDocumentDataTest {
 		var json = MAPPER.writeValueAsString(doc);
 		assertThat(json).doesNotContain("\"label\"");
 		assertThat(json).doesNotContain("\"boxes\"");
-		assertThat(json).doesNotContain("\"mimetype\"");
+		assertThat(json).contains("\"mimetype\":\"application/pdf\"");
 	}
 
 	/**
