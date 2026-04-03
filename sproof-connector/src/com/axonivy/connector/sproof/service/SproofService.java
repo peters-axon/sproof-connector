@@ -13,8 +13,8 @@ import ch.ivyteam.ivy.environment.Ivy;
 public class SproofService {
 	private static final String SPROOF_CONNECTOR_API_TOKEN = "com.axonivy.connector.sproof.apiToken";
 	private static final String SPROOF_CONNECTOR_SENDER_EMAIL = "com.axonivy.connector.sproof.senderEmail";
-	private static final String SPROOF_CONNECTOR_SENDER_FIRSTNAME = "com.axonivy.connector.sproof.senderFirstname";
-	private static final String SPROOF_CONNECTOR_SENDER_LASTNAME = "com.axonivy.connector.sproof.senderLastname";
+	private static final String SPROOF_CONNECTOR_SENDER_FIRST_NAME = "com.axonivy.connector.sproof.senderFirstName";
+	private static final String SPROOF_CONNECTOR_SENDER_LAST_NAME = "com.axonivy.connector.sproof.senderLastName";
 	private static final SproofService INSTANCE = new SproofService();
 
 	public static SproofService get() {
@@ -46,7 +46,7 @@ public class SproofService {
 	 */
 
 	public String getSenderFirstname() {
-		return Ivy.var().get(SPROOF_CONNECTOR_SENDER_FIRSTNAME);
+		return Ivy.var().get(SPROOF_CONNECTOR_SENDER_FIRST_NAME);
 	}
 	/**
 	 * Get the sender's last name.
@@ -54,7 +54,7 @@ public class SproofService {
 	 * @return
 	 */
 	public String getSenderLastname() {
-		return Ivy.var().get(SPROOF_CONNECTOR_SENDER_LASTNAME);
+		return Ivy.var().get(SPROOF_CONNECTOR_SENDER_LAST_NAME);
 	}
 
 	/**

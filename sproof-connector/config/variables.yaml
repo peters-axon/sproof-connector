@@ -10,6 +10,6 @@ Variables:
           # Email address of sender
           senderEmail: ""
           # First name of sender
-          senderFirstname: ""
+          senderFirstName: ""
           # Last name of sender
-          senderLastname: ""
+          senderLastName: ""
