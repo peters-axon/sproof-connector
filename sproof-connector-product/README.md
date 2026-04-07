@@ -1,23 +1,22 @@
 # Sproof Connector
 
-Sproof is a modern digital signature solution coming from Austria. This connector provides
-integration between Sproof and AxonIvy.
+Sproof is a modern digital signature solution coming from Austria. This connector provides integration between Sproof and AxonIvy.
 
-The Sproof API is published as a REST solution and integrated into Ivy as a REST client. The connector
-provides the API as-is to avoid imposing any unwanted restrictions on the API. A demo
-shows two simple variations of a typical signature workflow. As described later, additional calls may require minor adjustments to the connector.
+The Sproof API is published as a REST solution and integrated into Ivy as a REST client. The connector provides the API as-is to avoid imposing any unwanted restrictions on the API. A demo shows two simple variations of a typical signature workflow. As described later, additional calls may require minor adjustments to the connector.
 
 
 ## Demo
 
-The demo is designed to fit on a single page. First, you have the option to designate two people as
-signers. You must provide each person’s first name, last name, and email address.
-If any of this information is missing, the person will be ignored in this demo for the sake of simplicity. 
-*Please note that Sproof will send signature requests to the provided email addresses!*
+The demo UI is designed to fit on a single page, providing a simple signature solution where a document is created, a signature request is sent to Sproof, and the signature status and content of the document can be checked.
+
+![Demo](images/gui.png)
+
+First, enter up to two persons as signers. Each person need a first name, a last name, and an email address. If any of these informations is missing, the person will be ignored in this demo for the sake of simplicity. __Please note that Sproof will send signature requests to the provided email addresses!__
 
 The demo shows a static and a dynamic method for creating signature documents.
 
 Once the document has been created, it can be sent to Sproof for signature with the click of a button. Sending the document initiates the signature process in Sproof, and signers are prompted to sign.
+
 The API provides a so-called `Member Id` for identification, which is displayed in the interface (or can also be entered manually).
 
 Clicking *Fetch* retrieves the current state of the document from Sproof and displays it on the page. (Another option, which is not shown in this demo, is to use a `callbackUrl`, which Sproof will call upon certain events and which could, for example, be connected to a REST service provided by AxonIvy.)
@@ -26,16 +25,11 @@ For additional features and information, please refer to the [Sproof API Documen
 
 ### Signatures on a static document
 
-A static document is created, and signers are assigned an absolute, fixed position
-within the document for their signature. This approach is suitable when the document size is fixed or, more generally, when the absolute position of a signature within the document is known in advance.
+A static document is created, and signers are assigned an absolute, fixed position within the document for their signature. This approach is suitable when the document size is fixed or, more generally, when the absolute position of a signature within the document is known in advance.
 
 ### Signatures on a dynamically generated document
 
-A dynamic document is created that contains placeholders for signers at specific locations.
-This approach is ideal when documents can vary in size (such as
-invoices with a variable number of items or contracts with optional sections). In this case,
-the exact position of a signature within the document is unknown in advance. In this demo,
-placeholders are shown in light grey so they are easy to see. In productive environments
+A dynamic document is created that contains placeholders for signers at specific locations. This approach is ideal when documents can vary in size (such as invoices with a variable number of items or contracts with optional sections). In this case, the exact position of a signature within the document is unknown in advance. In this demo, placeholders are shown in light grey so they are easy to see. In productive environments
 placeholders can be made invisible.
 
 ## Setup
