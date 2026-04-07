@@ -11,7 +11,7 @@ The demo UI is designed to fit on a single page, providing a simple signature so
 
 ![Demo](images/gui.png)
 
-First, enter up to two persons as signers. Each person need a first name, a last name, and an email address. If any of these informations is missing, the person will be ignored in this demo for the sake of simplicity. __Please note that Sproof will send signature requests to the provided email addresses!__
+First, enter up to two persons as signers. Each person need a first name, a last name, and an email address. If any of these informations is missing, the person will be ignored in this demo for the sake of simplicity. __Please note, that Sproof will send signature requests to the provided email addresses!__
 
 The demo shows a static and a dynamic method for creating signature documents.
 

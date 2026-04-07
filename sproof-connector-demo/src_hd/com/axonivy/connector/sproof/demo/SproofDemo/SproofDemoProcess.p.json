@@ -13,7 +13,6 @@
         "signature" : "start",
         "input" : {
           "map" : {
-            "out.memberId" : "\"0415d107da1e181ff12702b0128d9938f94095e4fda85201276706c4cfb7c5c3db4c1f\"",
             "out.signer1Email" : "\"signer1@sprooftest.axonivy.com\"",
             "out.signer1FirstName" : "\"Signer\"",
             "out.signer1LastName" : "\"One\"",
@@ -291,8 +290,9 @@
               "pw.println(\"Signing round: %s\".formatted(result.signingRound));",
               "pw.println(\"All members signed: %s\".formatted(result.allMembersSigned));",
               "",
-              "Iterator it = result.members.iterator();",
+              "pw.println(\"Member: %s signed at: %s (declined at: %s)\".formatted(result.member.#email, result.member.#signedAt, result.member.#declinedAt));",
               "",
+              "Iterator it = result.members.iterator();",
               "while(it.hasNext()) {",
               "  SproofMember member = it.next() as SproofMember;",
               "  pw.println(\"Member: %s signed at: %s (declined at: %s)\".formatted(member.#email, member.#signedAt, member.#declinedAt));",
